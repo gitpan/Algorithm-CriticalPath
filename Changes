@@ -2,3 +2,5 @@ Revision history for Algorithm::CriticalPath
 
 0.01 	05/06/13
         First version, released on an unsuspecting world. 
+0.02 	06/06/13
+        Cosmetic changes.  Method rename for critical path attribute.

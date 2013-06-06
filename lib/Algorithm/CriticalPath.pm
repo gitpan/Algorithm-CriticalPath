@@ -7,15 +7,15 @@ use Mouse;
 
 =head1 NAME
 
-Algorithm::CriticalPath - Perfrom critical path analysis over a suitable Graph Object, by Ded MedVed
+Algorithm::CriticalPath - Perform a critical path analysis over a Graph Object, by Ded MedVed
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use Graph;
@@ -28,7 +28,7 @@ has 'graph' => (
 ,   required        => 1
 );
 
-has 'orderedNodes' => (
+has 'vertices' => (
     is  => 'rw'
 ,   isa => 'ArrayRef[Str]'
 );
@@ -74,7 +74,7 @@ sub BUILD {
         $i++;
     }
 
-    # copy adds in the normal dummy start and end nodes, so we don't destroy the original.
+    # $copy adds in the dummy start and end nodes, so we don't destroy the original.
     my $copy = $self->graph()->deep_copy();
     $copy->add_weighted_vertex($start,0);
     $copy->add_weighted_vertex($end,0);
@@ -101,7 +101,6 @@ sub BUILD {
 
     for my $row ( @rank ) {
         for my $node ( @$row ) {
-            my @costs;
             for my $s ( $copy->successors($node) ) {
                 if ( $costToHere{$node} + $copy->get_vertex_weight($s) > $costToHere{$s} ) { 
                     $costToHere{$s}                     = $costToHere{$node} + $copy->get_vertex_weight($s);
@@ -115,7 +114,7 @@ sub BUILD {
     # we don't want to see the dummy nodes on the returned critical path.
     @{$criticalPathToHere{$end}} = grep { $_ ne ${start} && $_ ne ${end} } @{$criticalPathToHere{$end}} ;
 
-    $self->orderedNodes(\@{$criticalPathToHere{$end}});
+    $self->vertices(\@{$criticalPathToHere{$end}});
     $self->cost($costToHere{$end});
 
         
@@ -134,9 +133,10 @@ __DATA__
 Performs a critical path analysis of a DAG where the vertices have costs, and the edges do not.
 All costs are assumed positive.  Dummy Start and End nodes are used internally to aid the analysis.
 
-The constructor takes a pre-constructed Graph object with weighted vertices and simple edges.  The Graph object embedded
-in the Algorithm::CriticalPath object is a readonly attribute, and cannot be updated once the Algorithm::CriticalPath object has been constructed.  
-The two accessor attributes are 'rw', as I haven't found an easy way to default them from the constructor. They should be 'ro'
+The constructor takes a pre-constructed Graph object with weighted vertices and simple directed edges.  The Graph object is embedded
+in the Algorithm::CriticalPath object as a readonly attribute, and cannot be updated once the Algorithm::CriticalPath object has been constructed.  
+The two accessor attributes are 'rw', as I haven't found an easy way to default them from the constructor. They should be 'ro', i.e. not modifiable
+once set by the constructor.
 
 The module checks that the passed-in Graph object is directed, non-cyclic, and simply connected, without multi-vertices and without multi-edges.
 
@@ -166,11 +166,11 @@ Creates and returns a new Algorithm::CriticalPath object.
 =back
 
 
-=head2 C<orderedNodes>
+=head2 C<vertices>
 
 =over 4
 
-=item * C<< $g->orderedNodes() >>
+=item * C<< $g->vertices() >>
 
 This returns the critical path as an array of node names.
 
@@ -182,7 +182,7 @@ This returns the critical path as an array of node names.
     $g->add_edge('Node1','Node3');
     
     my $cp = Algorithm::CriticalPath->new( {graph => $g} );
-    my @orderednodes = $cp->criticalpath();
+    my @orderednodes = $cp->vertices();
 
     
 =back    
@@ -203,7 +203,7 @@ This returns the critical path cost.
     $g->add_edge('Node1','Node3');
     
     my $cp = Algorithm::CriticalPath->new( {graph => $g} );
-    my $cost = $cp->criticalpath();
+    my $cost = $cp->cost();
 
     
 =back    

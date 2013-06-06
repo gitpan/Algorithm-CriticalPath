@@ -18,21 +18,21 @@ BEGIN {
     
     
     my $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
-    is_deeply($cp->orderedNodes(),[]);
+    is_deeply($cp->vertices(),[]);
     ok( $cp->cost() == 0, 'Critical Path cost with 0 nodes is 0.');
 
     
     $g->add_weighted_vertex('Node1', 1);
     my $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
 
-    is_deeply($cp->orderedNodes(),['Node1']);
+    is_deeply($cp->vertices(),['Node1']);
     ok( $cp->cost() == 1, 'Critical Path cost with 1 node is the node cost');
 
     $g->add_weighted_vertex('Node2', 2);
     $g->add_edge('Node1','Node2');
     my $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
 
-    is_deeply($cp->orderedNodes(),['Node1','Node2']);
+    is_deeply($cp->vertices(),['Node1','Node2']);
     ok( $cp->cost() == 3, 'Critical Path cost with 2 nodes in line is the sum of the nodes cost');
 
 
@@ -40,7 +40,7 @@ BEGIN {
     $g->add_edge('Node1','Node3');
     my $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
 
-    is_deeply($cp->orderedNodes(),['Node1','Node2']);
+    is_deeply($cp->vertices(),['Node1','Node2']);
     ok( $cp->cost() == 3, 'Critical Path cost with 3 nodes is the sum of the 2 most expensive in-line nodes');
 
     $g->add_weighted_vertex('EndNode4', 0);
@@ -48,7 +48,7 @@ BEGIN {
     $g->add_edge('Node3','EndNode4');
     my $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
 
-    is_deeply($cp->orderedNodes(),['Node1','Node2','EndNode4']);
+    is_deeply($cp->vertices(),['Node1','Node2','EndNode4']);
     ok( $cp->cost() == 3, 'Critical Path cost with 4 nodes where the last has no cost is the sum of the 2 most expensive in-line nodes');
 
 # Test building an invalid graph for critical path analysis - this one has a loop

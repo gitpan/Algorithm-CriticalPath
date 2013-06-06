@@ -1,5 +1,5 @@
 ---
-abstract: "Perfrom critical path analysis over a suitable Graph Object, by Ded MedVed\r"
+abstract: "Perform a critical path analysis over a Graph Object, by Ded MedVed\r"
 author:
   - 'Ded MedVed <dedmedved@cpan.org>'
 build_requires:
@@ -27,4 +27,4 @@ requires:
   Test::More: 0
   perl: 0
   version: 0
-version: 0.01
+version: 0.02
