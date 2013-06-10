@@ -21,7 +21,7 @@ WriteMakefile(
         'Carp'                          => 0,
         'IPC::System::Simple'           => 0,   # everything needs this ( on bsd anyway)
         'Mouse'                         => 0,
-        'Graph'                         => 0,
+        'Graph'                         => 0.94,
         'version'                       => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

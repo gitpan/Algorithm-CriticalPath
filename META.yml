@@ -19,7 +19,7 @@ no_index:
     - inc
 requires:
   Carp: 0
-  Graph: 0
+  Graph: 0.94
   IPC::System::Simple: 0
   Mouse: 0
   Test::Deep: 0
@@ -27,4 +27,4 @@ requires:
   Test::More: 0
   perl: 0
   version: 0
-version: 0.03
+version: 0.04
