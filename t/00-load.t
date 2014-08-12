@@ -4,6 +4,7 @@ use Test::More tests => 17;
 use Test::Exception;
 use Graph;
 use Data::Dumper ;
+use Data::Printer;
 
 BEGIN {
 
@@ -25,13 +26,15 @@ BEGIN {
     $g->add_weighted_vertex('Node1', 1);
     $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
 
+#p $cp->vertices();
+
     is_deeply($cp->vertices(),['Node1']);
     ok( $cp->cost() == 1, 'Critical Path cost with 1 node is the node cost');
 
     $g->add_weighted_vertex('Node2', 2);
     $g->add_edge('Node1','Node2');
     $cp = Algorithm::CriticalPath->new( { graph => $g}) ; 
-
+#p $cp->vertices();
     is_deeply($cp->vertices(),['Node1','Node2']);
     ok( $cp->cost() == 3, 'Critical Path cost with 2 nodes in line is the sum of the nodes cost');
 

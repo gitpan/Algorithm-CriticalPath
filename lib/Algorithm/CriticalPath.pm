@@ -11,11 +11,11 @@ Algorithm::CriticalPath - Perform a critical path analysis over a Graph Object, 
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 use Graph;
