@@ -12,3 +12,5 @@ Revision history for Algorithm::CriticalPath
         Kwalitee.
 0.06 	13/08/14
         Missing dependency Data::Printer.
+0.07 	13/08/14
+        Wrong version uploaded.

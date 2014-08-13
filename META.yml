@@ -28,4 +28,4 @@ requires:
   Test::More: 0
   perl: 5.008000
   version: 0
-version: 0.06
+version: 0.07
