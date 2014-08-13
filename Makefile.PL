@@ -15,6 +15,7 @@ WriteMakefile(
     PL_FILES            => {},
     EXE_FILES => [],
     PREREQ_PM => {
+        'Data::Printer'                 => 0,
         'Test::More'                    => 0,
         'Test::Deep'                    => 0,
         'Test::Exception'               => 0,

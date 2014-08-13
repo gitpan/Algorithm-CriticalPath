@@ -10,3 +10,5 @@ Revision history for Algorithm::CriticalPath
         Set minimum version of Graph to 0.94.
 0.05 	12/08/14
         Kwalitee.
+0.06 	13/08/14
+        Missing dependency Data::Printer.
